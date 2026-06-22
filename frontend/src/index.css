@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* True glassmorphism */
+  .glass-panel {
+    @apply bg-white/[0.03] border border-white/[0.08] backdrop-blur-[12px];
+  }
+
+  .terminal-input {
+    @apply bg-black/80 border border-primary/30 text-white font-mono p-4 outline-none resize-none placeholder-primary/40 focus:border-primary/70 transition-colors;
+  }
+
+  .terminal-log {
+    @apply bg-black border border-indigo-900/50 font-mono text-xs overflow-y-auto p-4;
+  }
+
+  /* Micro-interactions: glowing borders */
+  .hover-glow:hover {
+    @apply border-primary/50 shadow-indigo-glow transition-all duration-300;
+  }
+}
+
+/* Custom scrollbar for webkit */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.6);
+}
+
+/* Blinking cursor animation for terminal */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
