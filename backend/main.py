@@ -69,7 +69,6 @@ async def stream_task(task_id: str, request: Request):
                     break
                     
                 yield {
-                    "event": event_data["event_type"],
                     "data": json.dumps(event_data)
                 }
         except asyncio.CancelledError:
