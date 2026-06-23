@@ -344,3 +344,184 @@ INFO:     127.0.0.1:50732 - "GET /api/payments HTTP/1.1" 200 OK
 INFO:     127.0.0.1:50732 - "GET /api/agents HTTP/1.1" 200 OK
 INFO:     127.0.0.1:51977 - "GET /api/stats HTTP/1.1" 200 OK
 INFO:     127.0.0.1:62761 - "GET /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62761 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51977 - "GET /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50732 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50732 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62761 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51977 - "GET /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51977 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62761 - "GET /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50732 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50732 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62761 - "GET /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51977 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54358 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60449 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57302 - "GET /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62070 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50787 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50787 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50764 - "GET /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52565 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50764 - "GET /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52565 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52565 - "GET /api/auth/nonce HTTP/1.1" 200 OK
+ INFO:     127.0.0.1:52565 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50764 - "GET /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50787 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50787 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50764 - "GET /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52565 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64498 - "OPTIONS /api/auth/connect-wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52565 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50764 - "GET /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64498 - "POST /api/auth/connect-wallet HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50787 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50787 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50764 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64498 - "GET /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64498 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50764 - "GET /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50787 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50787 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50764 - "GET /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64498 - "GET /api/stats HTTP/1.1" 200 OK
+ INFO:     127.0.0.1:65024 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65024 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59241 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:50895 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:65024 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65024 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63244 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:49223 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:65024 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:49160 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:53990 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:55518 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:51488 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50836 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:63430 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:57759 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51488 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:55286 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62316 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62316 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57759 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:50184 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62316 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:54313 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:51615 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59995 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:54265 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62027 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51615 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:61369 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:59254 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58442 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62027 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:52136 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59254 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:61497 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:56206 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64933 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:52136 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:54962 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56206 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:59144 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:55984 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65127 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:61423 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62139 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55280 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:51832 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62802 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56746 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:65193 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:49320 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52708 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:63694 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:54111 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65037 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:53952 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:59121 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52325 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:55276 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:59420 - "OPTIONS /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60452 - "OPTIONS /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63168 - "OPTIONS /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59420 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63168 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:60452 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:51416 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57974 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:59452 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:51549 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55467 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:61664 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62270 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61779 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:49177 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:54308 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55960 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:56364 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:64070 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64999 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:64568 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:49669 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51384 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:57560 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:54583 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52995 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:63096 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62931 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64553 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:59862 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:52399 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60644 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:56483 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:61362 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49669 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:54661 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62697 - "OPTIONS /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63184 - "OPTIONS /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54102 - "OPTIONS /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63184 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62697 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:54102 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:58883 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61054 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:60297 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:63756 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51666 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:51220 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:52951 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62472 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62503 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:60490 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60268 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:60514 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:64216 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57399 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:61852 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:64193 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63111 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:64095 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:53622 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60667 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:61702 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:50198 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51712 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:54393 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:55631 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61456 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:53850 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:62516 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64449 - "GET /api/stats HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:61957 - "GET /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:61608 - "OPTIONS /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61608 - "OPTIONS /api/payments HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61608 - "OPTIONS /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61608 - "GET /api/agents HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60789 - "GET /api/payments HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:52264 - "GET /api/stats HTTP/1.1" 401 Unauthorized
