@@ -1,18 +1,30 @@
 import React, { useState } from 'react';
 import { useAuth } from '../auth/AuthContext';
-import { User, X, Loader2, Save } from 'lucide-react';
+import { User, X, Loader2, Save, Wallet, CheckCircle2, Unlink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ProfileModal = ({ onClose }) => {
-  const { user, updateProfile } = useAuth();
+  const { user, updateProfile, disconnectWallet } = useAuth();
   const [fullName, setFullName] = useState(user?.full_name || '');
   const [bio, setBio] = useState(user?.bio || '');
   const [loading, setLoading] = useState(false);
+  const [disconnecting, setDisconnecting] = useState(false);
   const [error, setError] = useState('');
 
   const generateAvatarUrl = (name, email) => {
     const seed = name || email;
     return `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(seed)}`;
+  };
+
+  const handleDisconnect = async () => {
+    setDisconnecting(true);
+    try {
+      await disconnectWallet();
+    } catch (err) {
+      setError(err.message || 'Failed to disconnect wallet');
+    } finally {
+      setDisconnecting(false);
+    }
   };
 
   const handleSave = async () => {
@@ -61,6 +73,25 @@ const ProfileModal = ({ onClose }) => {
             <p className="text-[10px] text-gray-500 tracking-widest uppercase text-center">
               Auto-generated identity core
             </p>
+            {user?.wallet_address && (
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-success/10 border border-success/30 rounded-full">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-success shrink-0" />
+                  <span className="text-[11px] font-mono text-success font-medium">
+                    {`${user.wallet_address.slice(0, 6)}...${user.wallet_address.slice(-4)}`}
+                  </span>
+                  <Wallet className="w-3 h-3 text-success/70 shrink-0" />
+                </div>
+                <button
+                  onClick={handleDisconnect}
+                  disabled={disconnecting}
+                  className="p-1.5 text-gray-400 hover:text-red-400 hover:bg-red-400/10 rounded-full transition-all disabled:opacity-50"
+                  title="Disconnect Wallet"
+                >
+                  {disconnecting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Unlink className="w-3.5 h-3.5" />}
+                </button>
+              </div>
+            )}
           </div>
 
           {error && <div className="text-red-400 text-sm bg-red-400/10 p-3 rounded">{error}</div>}

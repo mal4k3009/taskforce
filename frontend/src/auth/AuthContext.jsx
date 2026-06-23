@@ -113,6 +113,24 @@ export function AuthProvider({ children }) {
     return data;
   };
 
+  const disconnectWallet = async () => {
+    const res = await apiFetch('/api/auth/disconnect-wallet', {
+      method: 'POST',
+      body: JSON.stringify({}),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.detail || 'Failed to disconnect wallet');
+
+    setUser(prev => {
+      const updated = { ...prev };
+      delete updated.wallet_address;
+      return updated;
+    });
+    const stored = JSON.parse(localStorage.getItem('taskforce_user') || '{}');
+    delete stored.wallet_address;
+    localStorage.setItem('taskforce_user', JSON.stringify(stored));
+  };
+
     const updateProfile = async (full_name, bio) => {
       const res = await apiFetch('/api/auth/me', {
         method: 'PUT',
@@ -127,7 +145,7 @@ export function AuthProvider({ children }) {
     };
 
   return (
-    <AuthContext.Provider value={{ user, token, loading, register, login, logout, connectWallet, updateProfile, apiFetch }}>
+    <AuthContext.Provider value={{ user, token, loading, register, login, logout, connectWallet, disconnectWallet, updateProfile, apiFetch }}>
       {children}
     </AuthContext.Provider>
   );

@@ -20,3 +20,7 @@ backend/__pycache__/
 backend/.env
 frontend/.env
 *.env
+scripts/backend_stderr.log
+scripts/backend_stdout.log
+backend_stderr.log
+backend_stdout.log

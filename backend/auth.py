@@ -279,6 +279,20 @@ async def connect_wallet(
     return {"status": "connected", "wallet_address": body.wallet_address}
 
 
+@router.post("/disconnect-wallet")
+async def disconnect_wallet(current_user: UserModel = Depends(get_current_user)):
+    async with AsyncSessionLocal() as session:
+        result = await session.execute(
+            select(UserModel).where(UserModel.user_id == current_user.user_id)
+        )
+        user = result.scalar_one_or_none()
+        if user:
+            user.wallet_address = None
+            await session.commit()
+
+    return {"status": "disconnected"}
+
+
 @router.get("/me", response_model=UserResponse)
 async def get_me(current_user: UserModel = Depends(get_current_user)):
     return UserResponse(
@@ -317,3 +331,5 @@ async def update_profile(
             full_name=user.full_name,
             bio=user.bio
         )
+
+# trigger reload
