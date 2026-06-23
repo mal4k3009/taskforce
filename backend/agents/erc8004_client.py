@@ -23,39 +23,36 @@ def get_erc8004_abi():
         logger.error(f"Could not load ERC8004 ABI: {e}")
         return []
 
-def get_agent_identity(agent_id: str) -> Optional[AgentProfile]:
+async def get_agent_identity(agent_id: str) -> Optional[AgentProfile]:
     if ERC8004_REGISTRY_ADDRESS:
-        logger.info(f"Querying ERC8004 contract at {ERC8004_REGISTRY_ADDRESS} for agent {agent_id}")
-    return registry_instance.get_agent(agent_id)
+        logger.info(f"ERC8004 contract configured at {ERC8004_REGISTRY_ADDRESS} — querying DB registry")
+    return await registry_instance.get_agent(agent_id)
 
-def get_reputation_score(agent_id: str) -> Optional[float]:
-    agent = get_agent_identity(agent_id)
+async def get_reputation_score(agent_id: str) -> Optional[float]:
+    agent = await get_agent_identity(agent_id)
     return agent.reputation_score if agent else None
 
-def update_reputation(agent_id: str, job_success: bool, feedback: str) -> Optional[AgentProfile]:
+async def update_reputation(agent_id: str, job_success: bool, feedback: str) -> Optional[AgentProfile]:
     delta = 1.0 if job_success else -2.5
-    agent = registry_instance.get_agent(agent_id)
-    if not agent:
-        return None
-        
-    new_score = max(0.0, min(100.0, agent.reputation_score + delta))
-    new_score_int = int(new_score)
-    
+
     private_key = os.getenv("DEPLOYER_PRIVATE_KEY")
     abi = get_erc8004_abi()
-    
+
     if ERC8004_REGISTRY_ADDRESS and private_key and abi:
+        agent = await registry_instance.get_agent(agent_id)
+        if not agent:
+            return None
         try:
-            logger.info(f"Submitting reputation update to chain for {agent_id}: new_score {new_score_int}")
+            logger.info(f"Submitting reputation update to chain for {agent_id}")
             account = w3.eth.account.from_key(private_key)
             contract = w3.eth.contract(address=ERC8004_REGISTRY_ADDRESS, abi=abi)
-            
-            # The registry uses the erc8004_identity_hash as the bytes32 agentId
+
             agent_bytes = Web3.to_bytes(hexstr=agent.erc8004_identity_hash)
-            
+            new_score = int(max(0, min(100, agent.reputation_score + delta)))
+
             tx = contract.functions.updateReputation(
                 agent_bytes,
-                new_score_int,
+                new_score,
                 job_success
             ).build_transaction({
                 'from': account.address,
@@ -64,21 +61,21 @@ def update_reputation(agent_id: str, job_success: bool, feedback: str) -> Option
                 'maxFeePerGas': w3.to_wei('50', 'gwei'),
                 'maxPriorityFeePerGas': w3.to_wei('2', 'gwei'),
             })
-            
+
             signed_tx = w3.eth.account.sign_transaction(tx, private_key=private_key)
             tx_hash_bytes = w3.eth.send_raw_transaction(signed_tx.rawTransaction)
             tx_hash = w3.to_hex(tx_hash_bytes)
-            
+
             logger.info(f"Broadcasted reputation tx: {tx_hash}. Waiting for receipt...")
             receipt = w3.eth.wait_for_transaction_receipt(tx_hash_bytes)
-            
+
             if receipt.status != 1:
                 logger.error(f"Reputation update failed: {tx_hash}")
-                
+
         except Exception as e:
             logger.error(f"Web3 reputation transaction error: {e}")
-            
-    return registry_instance.update_agent_reputation(agent_id, delta, job_success)
 
-def discover_agents_by_specialty(specialty: str) -> List[AgentProfile]:
-    return registry_instance.find_by_specialty(specialty)
+    return await registry_instance.update_agent_reputation(agent_id, delta, job_success)
+
+async def discover_agents_by_specialty(specialty: str) -> List[AgentProfile]:
+    return await registry_instance.find_by_specialty(specialty)

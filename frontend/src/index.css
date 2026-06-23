@@ -13,7 +13,7 @@
   }
 
   .terminal-log {
-    @apply bg-black border border-indigo-900/50 font-mono text-xs overflow-y-auto p-4;
+    @apply bg-black/40 backdrop-blur-[8px] border border-white/10 rounded-xl font-mono text-xs overflow-y-auto p-4 shadow-inner relative;
   }
 
   /* Micro-interactions: glowing borders */

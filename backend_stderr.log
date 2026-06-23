@@ -1,0 +1,291 @@
+INFO:     Will watch for changes in these directories: ['C:\\Users\\malak\\Desktop\\CODES\\TASKFORCE\\backend']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [30648] using WatchFiles
+INFO:     Started server process [10596]
+INFO:     Waiting for application startup.
+INFO:main:Initializing database...
+INFO:main:Seeding default agents if empty...
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'test_payment.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [10596]
+WARNING:  WatchFiles detected changes in 'test_stats.py'. Reloading...
+INFO:     Started server process [16360]
+INFO:     Waiting for application startup.
+INFO:main:Initializing database...
+INFO:main:Seeding default agents if empty...
+INFO:     Application startup complete.
+ERROR:    Traceback (most recent call last):
+  File "C:\Users\malak\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\malak\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+asyncio.exceptions.CancelledError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\malak\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\malak\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 123, in run
+    raise KeyboardInterrupt()
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\malak\AppData\Local\Programs\Python\Python313\Lib\site-packages\starlette\routing.py", line 699, in lifespan
+    await receive()
+  File "C:\Users\malak\AppData\Local\Programs\Python\Python313\Lib\site-packages\uvicorn\lifespan\on.py", line 137, in receive
+    return await self.receive_queue.get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\malak\AppData\Local\Programs\Python\Python313\Lib\asyncio\queues.py", line 186, in get
+    await getter
+asyncio.exceptions.CancelledError
+
+INFO:     Started server process [27452]
+INFO:     Waiting for application startup.
+INFO:main:Initializing database...
+INFO:main:Seeding default agents if empty...
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'auth.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for connections to close. (CTRL+C to force quit)
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/.well-known/jwks.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/.well-known/jwks.json "HTTP/1.1 200 OK"
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [27452]
+INFO:     Started server process [28520]
+INFO:     Waiting for application startup.
+INFO:main:Initializing database...
+INFO:main:Seeding default agents if empty...
+INFO:     Application startup complete.
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://nwmlfettjpzmynlkxpma.supabase.co/auth/v1/user "HTTP/1.1 200 OK"

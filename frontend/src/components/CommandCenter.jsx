@@ -4,6 +4,10 @@ import { Activity, TerminalSquare, CheckCircle2, AlertCircle, Loader2 } from 'lu
 import AgentNodeOrbit from './AgentNodeOrbit';
 
 const CommandCenter = ({ agents, payments, stats, onDeploy, taskState, sseEvents, onSelectAgent }) => {
+  agents = agents || [];
+  payments = payments || [];
+  sseEvents = sseEvents || [];
+  stats = stats || {};
   const [taskInput, setTaskInput] = useState('');
   const logEndRef = useRef(null);
 
@@ -154,25 +158,39 @@ const CommandCenter = ({ agents, payments, stats, onDeploy, taskState, sseEvents
                   {sseEvents.map((evt, idx) => (
                     <motion.div
                       key={idx}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      className="flex items-start gap-3"
+                      initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      className="flex items-stretch gap-3 p-3 rounded-lg bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] transition-colors relative group"
                     >
-                      <span className="text-gray-600 shrink-0">
-                        [{new Date(evt.timestamp * 1000).toISOString().substr(11, 8)}]
-                      </span>
-                      {getEventBadge(evt.event_type)}
-                      <span className={`flex-1 ${evt.event_type === 'ERROR' ? 'text-red-400' : 'text-gray-300'}`}>
-                        {evt.message}
-                      </span>
-                      {evt.amount > 0 && (
-                        <span className="text-warning font-mono">${evt.amount.toFixed(2)}</span>
-                      )}
-                      {evt.tx_hash && (
-                        <span className="text-gray-500 truncate w-24" title={evt.tx_hash}>
-                          {evt.tx_hash.substring(0, 10)}...
-                        </span>
-                      )}
+                      {/* Timeline Line */}
+                      <div className="flex flex-col items-center mt-1 shrink-0">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary/50 shadow-indigo-glow" />
+                        {idx !== sseEvents.length - 1 && <div className="w-px h-full bg-white/10 mt-2" />}
+                      </div>
+                      
+                      <div className="flex-1 space-y-1.5 pb-2">
+                        <div className="flex items-center gap-2 flex-wrap">
+                           <span className="text-[10px] text-gray-500 font-mono shrink-0">
+                             {new Date(evt.timestamp * 1000).toISOString().substr(11, 8)}
+                           </span>
+                           {getEventBadge(evt.event_type)}
+                           
+                           {evt.amount > 0 && (
+                             <span className="ml-auto text-[10px] text-warning font-mono bg-warning/10 px-1.5 py-0.5 rounded border border-warning/20 flex items-center gap-1">
+                               + ${evt.amount.toFixed(2)}
+                             </span>
+                           )}
+                           {evt.tx_hash && (
+                             <span className="text-[10px] text-gray-500 font-mono truncate w-24 md:w-32 ml-auto lg:ml-2 opacity-50 group-hover:opacity-100 transition-opacity cursor-help" title={evt.tx_hash}>
+                               TX: {evt.tx_hash.substring(0, 8)}...
+                             </span>
+                           )}
+                        </div>
+                        
+                        <p className={`text-xs font-mono leading-relaxed ${evt.event_type === 'ERROR' ? 'text-red-400' : 'text-gray-300'}`}>
+                          {evt.message}
+                        </p>
+                      </div>
                     </motion.div>
                   ))}
                 </AnimatePresence>
