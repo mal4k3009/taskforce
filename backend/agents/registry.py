@@ -18,6 +18,8 @@ class AgentProfile(BaseModel):
     avatar_seed: str
     creator_user_id: Optional[str] = None
     system_prompt: Optional[str] = None
+    api_endpoint: Optional[str] = None
+    api_key: Optional[str] = None
     is_active: bool = True
 
 
@@ -26,6 +28,8 @@ class CreateAgentRequest(BaseModel):
     specialty: str
     price_per_task_usd: float = 0.10
     system_prompt: Optional[str] = None
+    api_endpoint: Optional[str] = None
+    api_key: Optional[str] = None
 
 
 class UpdateAgentRequest(BaseModel):
@@ -33,6 +37,8 @@ class UpdateAgentRequest(BaseModel):
     specialty: Optional[str] = None
     price_per_task_usd: Optional[float] = None
     system_prompt: Optional[str] = None
+    api_endpoint: Optional[str] = None
+    api_key: Optional[str] = None
     is_active: Optional[bool] = None
 
 
@@ -161,6 +167,8 @@ class MockAgentRegistry:
                 avatar_seed=avatar_seed,
                 creator_user_id=creator_user_id,
                 system_prompt=req.system_prompt,
+                api_endpoint=req.api_endpoint,
+                api_key=req.api_key,
                 is_active=True,
             )
             session.add(row)
@@ -182,6 +190,10 @@ class MockAgentRegistry:
                 row.price_per_task_usd = req.price_per_task_usd
             if req.system_prompt is not None:
                 row.system_prompt = req.system_prompt
+            if req.api_endpoint is not None:
+                row.api_endpoint = req.api_endpoint
+            if req.api_key is not None:
+                row.api_key = req.api_key
             if req.is_active is not None:
                 row.is_active = req.is_active
             await session.commit()
@@ -223,6 +235,8 @@ def _row_to_profile(row: AgentModel) -> AgentProfile:
         avatar_seed=row.avatar_seed,
         creator_user_id=row.creator_user_id,
         system_prompt=row.system_prompt,
+        api_endpoint=row.api_endpoint,
+        api_key=row.api_key,
         is_active=row.is_active,
     )
 

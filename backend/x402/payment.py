@@ -127,6 +127,51 @@ class X402PaymentProcessor:
             row = result.scalar_one_or_none()
             return row is not None and row.status == "CONFIRMED"
 
+    async def verify_user_payment(self, tx_hash: str) -> bool:
+        try:
+            async with AsyncSessionLocal() as session:
+                result = await session.execute(select(PaymentModel).where(PaymentModel.tx_hash == tx_hash))
+                if result.scalar_one_or_none():
+                    logger.warning(f"Transaction {tx_hash} already used.")
+                    return False
+            
+            tx = w3.eth.get_transaction(tx_hash)
+            receipt = w3.eth.wait_for_transaction_receipt(tx_hash, timeout=10)
+            
+            if receipt.status != 1:
+                logger.warning(f"Transaction {tx_hash} failed on-chain.")
+                return False
+                
+            expected_treasury = os.getenv("VITE_TREASURY_WALLET_ADDRESS", "0x70997970C51812dc3A010C7d01b50e0d17dc79C8")
+            if tx.to.lower() != expected_treasury.lower():
+                logger.warning(f"Transaction {tx_hash} sent to wrong address: {tx.to}")
+                return False
+                
+            if tx.value < w3.to_wei(0.0001, 'ether'):
+                logger.warning(f"Transaction {tx_hash} insufficient value: {tx.value}")
+                return False
+                
+            async with AsyncSessionLocal() as session:
+                record = PaymentModel(
+                    user_id=None,
+                    agent_id=None,
+                    job_id="PREPAY-" + tx_hash[:8],
+                    from_wallet=tx['from'],
+                    to_wallet=tx.to,
+                    amount=0.0001,
+                    platform_fee=0.0,
+                    tx_hash=tx_hash,
+                    timestamp=time.time(),
+                    status="CONFIRMED"
+                )
+                session.add(record)
+                await session.commit()
+                
+            return True
+        except Exception as e:
+            logger.error(f"Error verifying user payment: {e}")
+            return False
+
     async def get_earnings_by_creator(self, creator_user_id: str) -> dict:
         from agents.registry import registry_instance
         my_agents = await registry_instance.get_agents_by_creator(creator_user_id)

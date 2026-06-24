@@ -29,6 +29,8 @@ async def _migrate_add_columns():
         ("agents", "creator_user_id", "VARCHAR(64)"),
         ("agents", "system_prompt", "TEXT"),
         ("agents", "is_active", "BOOLEAN DEFAULT false"),
+        ("agents", "api_endpoint", "VARCHAR(255)"),
+        ("agents", "api_key", "VARCHAR(255)"),
         ("payments", "agent_id", "VARCHAR(64)"),
         ("payments", "platform_fee", "FLOAT DEFAULT 0.0"),
     ]
@@ -53,6 +55,5 @@ async def init_db():
     from models import Base
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-    await _migrate_add_columns()
     # Force schema cache refresh: dispose pool so new connections pick up new columns
     await engine.dispose()

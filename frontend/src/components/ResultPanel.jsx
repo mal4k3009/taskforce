@@ -93,7 +93,7 @@ const ResultPanel = ({ data, onClose }) => {
           doc.setTextColor(180, 180, 180);
           addText(`Task: ${st.description}`, 10);
           doc.setTextColor(255, 200, 50);
-          addText(`Cost: $${(st.cost || 0).toFixed(2)}  |  Reputation Change: ${st.reputation_change || 'N/A'}`, 10);
+          addText(`Cost: ${(st.cost || 0).toFixed(4)} AVAX  |  Reputation Change: ${st.reputation_change || 'N/A'}`, 10);
           doc.setTextColor(200, 200, 200);
           addText(`Output: ${st.output || 'No output'}`, 10);
           doc.setTextColor(255, 255, 255);
@@ -107,7 +107,8 @@ const ResultPanel = ({ data, onClose }) => {
       doc.setTextColor(99, 102, 241);
       addText('FINAL SYNTHESIZED OUTPUT', 14, true);
       doc.setTextColor(200, 200, 200);
-      addText(data.final_result || 'No output generated.', 11);
+      const cleanFinalResult = (data.final_result || 'No output generated.').replace(/\*\*/g, '').replace(/### /g, '');
+      addText(cleanFinalResult, 11);
       doc.setTextColor(255, 255, 255);
 
       // Footer
@@ -186,7 +187,7 @@ const ResultPanel = ({ data, onClose }) => {
             spacing: { before: 200, after: 80 },
           }));
           addBody(`Task: ${st.description}`, { color: 'CCCCCC' });
-          addBody(`Cost: $${(st.cost || 0).toFixed(2)}  |  Reputation Change: ${st.reputation_change || 'N/A'}`, { color: 'FFC832' });
+          addBody(`Cost: ${(st.cost || 0).toFixed(4)} AVAX  |  Reputation Change: ${st.reputation_change || 'N/A'}`, { color: 'FFC832' });
           addBody(`Output: ${st.output || 'No output'}`, { color: 'AAAAAA' });
         });
       }
@@ -194,7 +195,8 @@ const ResultPanel = ({ data, onClose }) => {
       // Final Synthesis
       addSeparator();
       addHeading('Final Synthesized Output', HeadingLevel.HEADING_2);
-      addBody(data.final_result || 'No output generated.', { color: 'CCCCCC' });
+      const cleanFinalResultDocx = (data.final_result || 'No output generated.').replace(/\*\*/g, '').replace(/### /g, '');
+      addBody(cleanFinalResultDocx, { color: 'CCCCCC' });
 
       // Footer
       children.push(new Paragraph({ spacing: { before: 400 } }));
@@ -240,7 +242,7 @@ const ResultPanel = ({ data, onClose }) => {
           <div>
             <h2 className="text-lg font-bold text-white tracking-wide">MISSION ACCOMPLISHED</h2>
             <div className="flex items-center gap-4 mt-1 text-xs text-gray-400 font-mono">
-              <span>Total Cost: <span className="text-warning">${totalCost.toFixed(2)}</span></span>
+              <span>Total Cost: <span className="text-warning">{totalCost.toFixed(4)} AVAX</span></span>
               <span>Agents Hired: <span className="text-primary">{data.subtasks?.length || 0}</span></span>
             </div>
           </div>
@@ -305,7 +307,7 @@ const ResultPanel = ({ data, onClose }) => {
                       <div className="p-3 space-y-2 bg-black/20">
                         <p className="text-xs text-gray-400"><span className="text-gray-500">Task:</span> {st.description}</p>
                         <div className="flex items-center gap-4 text-[10px] font-mono">
-                          <span className="text-warning">Cost: ${st.cost.toFixed(2)}</span>
+                          <span className="text-warning">Cost: {st.cost.toFixed(4)} AVAX</span>
                           <span className="text-success">Reputation: {st.reputation_change}</span>
                         </div>
                         <div className="mt-2 text-xs text-gray-300 font-mono bg-black p-2 rounded border border-white/5 max-h-32 overflow-y-auto whitespace-pre-wrap">
@@ -329,7 +331,7 @@ const ResultPanel = ({ data, onClose }) => {
             </h3>
             <div className="prose prose-invert prose-p:text-gray-300 prose-headings:text-white border-l-2 border-primary/50 pl-6 py-2">
               {data.final_result ? (
-                <div dangerouslySetInnerHTML={{ __html: data.final_result.replace(/\n/g, '<br/>') }} />
+                <div dangerouslySetInnerHTML={{ __html: data.final_result.replace(/\*\*/g, '').replace(/### /g, '').replace(/\n/g, '<br/>') }} />
               ) : (
                 <p className="text-gray-500 italic">No output generated.</p>
               )}

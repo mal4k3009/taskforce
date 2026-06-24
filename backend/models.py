@@ -40,6 +40,8 @@ class Agent(Base):
     avatar_seed: Mapped[str] = mapped_column(String(64), default="")
     creator_user_id: Mapped[str] = mapped_column(String(64), ForeignKey("users.user_id"), nullable=True, default=None)
     system_prompt: Mapped[str] = mapped_column(Text, nullable=True, default=None)
+    api_endpoint: Mapped[str] = mapped_column(String(255), nullable=True, default=None)
+    api_key: Mapped[str] = mapped_column(String(255), nullable=True, default=None)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[DateTime] = mapped_column(DateTime, server_default=func.now())
     updated_at: Mapped[DateTime] = mapped_column(DateTime, server_default=func.now(), onupdate=func.now())

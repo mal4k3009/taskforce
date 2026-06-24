@@ -20,6 +20,8 @@ const DeployAgentModal = ({ user, apiFetch, onClose, onDeployed }) => {
   const [specialty, setSpecialty] = useState('');
   const [price, setPrice] = useState('0.10');
   const [systemPrompt, setSystemPrompt] = useState('');
+  const [apiEndpoint, setApiEndpoint] = useState('');
+  const [apiKey, setApiKey] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -61,7 +63,9 @@ const DeployAgentModal = ({ user, apiFetch, onClose, onDeployed }) => {
           name: name.trim(),
           specialty,
           price_per_task_usd: parseFloat(price) || 0.10,
-          system_prompt: system_prompt.trim() || null,
+          system_prompt: systemPrompt.trim() || null,
+          api_endpoint: apiEndpoint.trim() || null,
+          api_key: apiKey.trim() || null,
         }),
       });
       const data = await res.json();
@@ -161,6 +165,34 @@ const DeployAgentModal = ({ user, apiFetch, onClose, onDeployed }) => {
                   className="w-full bg-white/5 border border-white/10 rounded px-3 py-2 text-white h-24 resize-none focus:outline-none focus:border-primary/50 transition-colors"
                 />
               </div>
+
+              <div>
+                <label className="block text-xs text-gray-400 tracking-widest uppercase mb-1">
+                  Custom API Endpoint (Optional)
+                </label>
+                <input
+                  type="text"
+                  value={apiEndpoint}
+                  onChange={(e) => setApiEndpoint(e.target.value)}
+                  placeholder="https://your-agent-api.com/webhook"
+                  className="w-full bg-white/5 border border-white/10 rounded px-3 py-2 text-white focus:outline-none focus:border-primary/50 transition-colors"
+                />
+              </div>
+
+              {apiEndpoint && (
+                <div>
+                  <label className="block text-xs text-gray-400 tracking-widest uppercase mb-1">
+                    API Key (Optional)
+                  </label>
+                  <input
+                    type="password"
+                    value={apiKey}
+                    onChange={(e) => setApiKey(e.target.value)}
+                    placeholder="Bearer token for your API"
+                    className="w-full bg-white/5 border border-white/10 rounded px-3 py-2 text-white focus:outline-none focus:border-primary/50 transition-colors"
+                  />
+                </div>
+              )}
 
               <div className="bg-white/5 border border-white/10 rounded p-3">
                 <div className="flex items-center justify-between text-xs">

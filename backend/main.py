@@ -30,8 +30,6 @@ from auth import router as auth_router, get_current_user
 async def lifespan(app: FastAPI):
     logger.info("Initializing database...")
     await init_db()
-    logger.info("Seeding default agents if empty...")
-    await registry_instance.seed_if_empty()
     yield
     await engine.dispose()
 
@@ -63,6 +61,7 @@ task_queues: Dict[str, asyncio.Queue] = {}
 
 class TaskRequest(BaseModel):
     task: str
+    tx_hash: str = None
 
     @field_validator("task")
     @classmethod
@@ -78,6 +77,13 @@ async def create_task(
     background_tasks: BackgroundTasks,
     current_user: UserModel = Depends(get_current_user),
 ):
+    if not request.tx_hash:
+        raise HTTPException(status_code=400, detail="Missing tx_hash for prepayment")
+    
+    is_valid = await payment_processor.verify_user_payment(request.tx_hash)
+    if not is_valid:
+        raise HTTPException(status_code=400, detail="Invalid or already used payment transaction")
+
     task_id = str(uuid.uuid4())
 
     async with AsyncSessionLocal() as session:

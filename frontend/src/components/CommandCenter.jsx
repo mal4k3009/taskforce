@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Activity, TerminalSquare, CheckCircle2, AlertCircle, Loader2, Plus, User, DollarSign, Wallet, Users } from 'lucide-react';
 import AgentNodeOrbit from './AgentNodeOrbit';
+import { ethers } from 'ethers';
 
 const CommandCenter = ({ agents, payments, stats, onDeploy, taskState, sseEvents, onSelectAgent, onOpenDeployAgent, user, myAgents, earnings }) => {
   agents = agents || [];
@@ -18,9 +19,36 @@ const CommandCenter = ({ agents, payments, stats, onDeploy, taskState, sseEvents
     logEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [sseEvents]);
 
-  const handleDeploy = () => {
+  const [isPaying, setIsPaying] = useState(false);
+
+  const handleDeploy = async () => {
     if (taskInput.trim()) {
-      onDeploy(taskInput);
+      setIsPaying(true);
+      try {
+        if (!window.ethereum) throw new Error("MetaMask is required");
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        
+        // Treasury wallet (Mock or env)
+        const treasury = import.meta.env.VITE_TREASURY_WALLET_ADDRESS || "0x70997970C51812dc3A010C7d01b50e0d17dc79C8";
+        
+        // Request 0.0001 AVAX
+        const tx = await signer.sendTransaction({
+          to: treasury,
+          value: ethers.parseEther("0.0001")
+        });
+        
+        // Wait for it to be mined
+        await tx.wait();
+        
+        onDeploy(taskInput, tx.hash);
+        setTaskInput('');
+      } catch (err) {
+        console.error("Payment failed", err);
+        alert("Payment failed or was rejected: " + err.message);
+      } finally {
+        setIsPaying(false);
+      }
     }
   };
 
@@ -101,7 +129,7 @@ const CommandCenter = ({ agents, payments, stats, onDeploy, taskState, sseEvents
                       <span className="text-xs font-mono text-gray-300">{agent.reputation_score.toFixed(1)}</span>
                     </div>
                     <span className="text-[10px] text-secondary font-mono flex items-center gap-1">
-                      <Wallet className="w-3 h-3" /> Revenue: ${earnings?.agents?.find(a => a.agent_id === agent.agent_id)?.earned_usd?.toFixed(2) || '0.00'}
+                      <Wallet className="w-3 h-3" /> Revenue: {earnings?.agents?.find(a => a.agent_id === agent.agent_id)?.earned_usd?.toFixed(4) || '0.0000'} AVAX
                     </span>
                   </motion.div>
                 ))}
@@ -171,7 +199,7 @@ const CommandCenter = ({ agents, payments, stats, onDeploy, taskState, sseEvents
             </div>
             <div className="bg-white/5 p-2 rounded">
               <div className="text-[10px] text-gray-500 uppercase">Total Value</div>
-              <motion.div className="font-mono text-sm text-secondary">${stats.total_value_settled_usd.toFixed(2)}</motion.div>
+              <motion.div className="font-mono text-sm text-secondary">{stats.total_value_settled_usd.toFixed(4)} AVAX</motion.div>
             </div>
           </div>
         </div>
@@ -198,10 +226,12 @@ const CommandCenter = ({ agents, payments, stats, onDeploy, taskState, sseEvents
             <span className="text-xs text-gray-500 font-mono">{taskInput.length} bytes</span>
             <button
               onClick={handleDeploy}
-              disabled={!taskInput.trim() || taskState === 'RUNNING'}
+              disabled={!taskInput.trim() || taskState === 'RUNNING' || isPaying}
               className="px-6 py-2 bg-primary hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold tracking-widest uppercase transition-all shadow-indigo-glow flex items-center gap-2"
             >
-              {taskState === 'RUNNING' ? (
+              {isPaying ? (
+                <><Loader2 className="w-4 h-4 animate-spin" /> Authorizing...</>
+              ) : taskState === 'RUNNING' ? (
                 <><Loader2 className="w-4 h-4 animate-spin" /> Orchestrating...</>
               ) : 'Deploy Task'}
             </button>
@@ -243,7 +273,7 @@ const CommandCenter = ({ agents, payments, stats, onDeploy, taskState, sseEvents
                            
                            {evt.amount > 0 && (
                              <span className="ml-auto text-[10px] text-warning font-mono bg-warning/10 px-1.5 py-0.5 rounded border border-warning/20 flex items-center gap-1">
-                               + ${evt.amount.toFixed(2)}
+                               + {evt.amount.toFixed(4)} AVAX
                              </span>
                            )}
                            {evt.tx_hash && (
@@ -276,8 +306,8 @@ const CommandCenter = ({ agents, payments, stats, onDeploy, taskState, sseEvents
               <div key={idx} className="bg-black/30 border border-white/5 p-3 rounded flex flex-col gap-2">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] bg-secondary/20 text-secondary px-1 rounded">USDC</span>
-                    <span className="font-mono text-sm text-white">${p.amount.toFixed(2)}</span>
+                    <span className="text-[10px] bg-secondary/20 text-secondary px-1 rounded">AVAX</span>
+                    <span className="font-mono text-sm text-white">{p.amount.toFixed(4)} AVAX</span>
                   </div>
                   {p.status === 'CONFIRMED' ? (
                     <CheckCircle2 className="w-4 h-4 text-success" />

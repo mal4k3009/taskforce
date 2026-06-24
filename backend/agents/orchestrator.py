@@ -5,6 +5,7 @@ import time
 import asyncio
 import logging
 import google.generativeai as genai
+import httpx
 from typing import Dict, Any, List
 from pydantic import BaseModel
 
@@ -145,8 +146,30 @@ async def orchestrate_task(task_id: str, task_description: str, event_queue: asy
         # Execute Subtask
         emit("TASK_STARTED", f"Agent working on: {subtask_desc}", agent_name=chosen_agent.name, step=step_num)
 
-        agent_prompt = f"You are {chosen_agent.name}, an expert in {chosen_agent.specialty}. Complete this subtask: {subtask_desc}. Context: {task_description}"
-        agent_output = await generate_gemini_content(agent_prompt, is_json=False)
+        if chosen_agent.api_endpoint:
+            try:
+                headers = {"Content-Type": "application/json"}
+                if chosen_agent.api_key:
+                    headers["Authorization"] = f"Bearer {chosen_agent.api_key}"
+                
+                payload = {
+                    "task_id": task_id,
+                    "subtask_description": subtask_desc,
+                    "context": task_description,
+                    "price_usd": price
+                }
+                
+                async with httpx.AsyncClient(timeout=60.0) as client:
+                    resp = await client.post(chosen_agent.api_endpoint, json=payload, headers=headers)
+                    resp.raise_for_status()
+                    data = resp.json()
+                    agent_output = data.get("output", str(data))
+            except Exception as e:
+                logger.error(f"External API error for {chosen_agent.name}: {e}")
+                agent_output = f"Error calling external agent: {e}"
+        else:
+            agent_prompt = f"You are {chosen_agent.name}, an expert in {chosen_agent.specialty}. Complete this subtask: {subtask_desc}. Context: {task_description}"
+            agent_output = await generate_gemini_content(agent_prompt, is_json=False)
 
         results_collected.append({"agent": chosen_agent.name, "task": subtask_desc, "output": agent_output})
 

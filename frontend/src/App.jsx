@@ -68,14 +68,14 @@ function Dashboard() {
 
   useEffect(() => {
     fetchData();
-    const interval = setInterval(fetchData, 5000);
+    const interval = setInterval(fetchData, 30000);
     return () => clearInterval(interval);
   }, []);
 
   const fetchData = async () => {
     const safeFetch = async (url, setter) => {
       try {
-        const res = await apiFetch(url, { _silent: true });
+        const res = await apiFetch(url);
         if (res.ok) setter(await res.json());
       } catch {}
     };
@@ -88,7 +88,7 @@ function Dashboard() {
     ]);
   };
 
-  const handleDeployTask = async (taskText) => {
+  const handleDeployTask = async (taskText, tx_hash) => {
     setSseEvents([]);
     setResultData(null);
     setTaskState('RUNNING');
@@ -96,7 +96,7 @@ function Dashboard() {
     try {
       const res = await apiFetch('/api/task', {
         method: 'POST',
-        body: JSON.stringify({ task: taskText }),
+        body: JSON.stringify({ task: taskText, tx_hash }),
       });
       const data = await res.json();
       setActiveTaskId(data.task_id);
@@ -167,7 +167,7 @@ function Dashboard() {
           )}
           {myAgents.length > 0 && (
             <span className="text-[10px] text-warning font-mono flex items-center gap-1">
-              <Bot className="w-3 h-3" /> Earned: ${earnings.total_earned_usd?.toFixed(2) || '0.00'}
+              <Bot className="w-3 h-3" /> Earned: {earnings.total_earned_usd?.toFixed(4) || '0.0000'} AVAX
             </span>
           )}
         </div>
