@@ -17,35 +17,36 @@ const AgentModal = ({ agent, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.95 }}
-        className="w-full max-w-4xl bg-[#0a0a0f] border border-primary/20 rounded-xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]"
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/80 backdrop-blur-sm">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+        className="w-full sm:max-w-4xl bg-[#0a0a0f] border border-primary/20 rounded-t-2xl sm:rounded-xl overflow-hidden shadow-2xl flex flex-col max-h-[95dvh] sm:max-h-[90vh]"
       >
-        <div className="flex justify-between items-center p-4 border-b border-white/5 bg-white/[0.02]">
-          <div className="flex items-center gap-2 text-primary text-xs uppercase tracking-widest font-bold">
-            <ShieldCheck className="w-4 h-4" /> ERC-8004 Identity Profile
+        <div className="flex justify-between items-center p-3 sm:p-4 border-b border-white/5 bg-white/[0.02] shrink-0">
+          <div className="flex items-center gap-2 text-primary text-[10px] sm:text-xs uppercase tracking-widest font-bold min-w-0">
+            <ShieldCheck className="w-4 h-4 shrink-0" />
+            <span className="truncate">ERC-8004 Identity Profile</span>
           </div>
           <button onClick={onClose} className="p-1 hover:bg-white/10 rounded text-gray-400">
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-6 flex flex-col md:flex-row gap-8">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col md:flex-row gap-6 sm:gap-8 min-h-0">
           {/* Left Column: Core Identity */}
           <div className="w-full md:w-1/3 flex flex-col items-center text-center space-y-4">
             <div className="relative">
               <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl"></div>
-              <img 
-                src={`https://api.dicebear.com/7.x/bottts/svg?seed=${agent.avatar_seed}`} 
-                alt="Avatar" 
-                className="relative w-32 h-32 rounded-full border-2 border-primary/50 bg-black/50"
+              <img
+                src={`https://api.dicebear.com/7.x/bottts/svg?seed=${agent.avatar_seed}`}
+                alt="Avatar"
+                className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-full border-2 border-primary/50 bg-black/50"
               />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-white">{agent.name}</h2>
+              <h2 className="text-xl sm:text-2xl font-bold text-white">{agent.name}</h2>
               <p className="text-secondary tracking-widest uppercase text-xs mt-1">{agent.specialty}</p>
             </div>
 
@@ -57,13 +58,22 @@ const AgentModal = ({ agent, onClose }) => {
                 </div>
               </div>
 
-              {agent.creator_user_id && (
+              {agent.creator_user_id ? (
                 <div className="bg-black/50 border border-secondary/20 p-3 rounded">
                   <div className="text-[10px] text-secondary uppercase tracking-widest mb-1 flex items-center gap-1">
                     <User className="w-3 h-3" /> Deployed By User
                   </div>
                   <div className="text-xs font-mono text-gray-400">
                     Community-deployed agent
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-black/50 border border-primary/20 p-3 rounded">
+                  <div className="text-[10px] text-primary uppercase tracking-widest mb-1 flex items-center gap-1">
+                    <ShieldCheck className="w-3 h-3" /> System Agent
+                  </div>
+                  <div className="text-xs font-mono text-gray-400">
+                    Official platform agent
                   </div>
                 </div>
               )}
@@ -107,7 +117,7 @@ const AgentModal = ({ agent, onClose }) => {
               </div>
             </div>
 
-            <div className="flex-1 min-h-[200px] border border-white/5 rounded bg-black/30 p-4">
+            <div className="flex-1 min-h-[180px] sm:min-h-[200px] border border-white/5 rounded bg-black/30 p-3 sm:p-4">
               <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-4">Reputation History (Last 10 Jobs)</h3>
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={mockChartData}>

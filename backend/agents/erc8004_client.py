@@ -33,7 +33,7 @@ async def get_reputation_score(agent_id: str) -> Optional[float]:
     return agent.reputation_score if agent else None
 
 async def update_reputation(agent_id: str, job_success: bool, feedback: str) -> Optional[AgentProfile]:
-    delta = 1.0 if job_success else -2.5
+    delta = 0.1 if job_success else -0.5
 
     private_key = os.getenv("DEPLOYER_PRIVATE_KEY")
     abi = get_erc8004_abi()

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Activity, Wallet, Loader2, Bot } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Activity, Wallet, Loader2, Bot, LogOut, User, ChevronDown } from 'lucide-react';
 import { AuthProvider, useAuth } from './auth/AuthContext';
 import Login from './auth/Login';
 import Register from './auth/Register';
@@ -14,20 +14,20 @@ function AuthScreen() {
   const [mode, setMode] = useState('login');
 
   return (
-    <div className="h-full w-full flex items-center justify-center">
+    <div className="h-full w-full flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
       <div className="absolute inset-0 bg-black/40" />
-      <div className="relative z-10 w-full max-w-sm mx-auto">
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-2">
-            <Activity className="w-8 h-8 text-primary" />
-            <h1 className="text-3xl font-bold tracking-wide">
+      <div className="relative z-10 w-full max-w-sm mx-auto my-auto">
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
+            <Activity className="w-7 h-7 sm:w-8 sm:h-8 text-primary shrink-0" />
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-wide">
               <span className="text-white">TASK</span><span className="text-primary">FORCE</span>
             </h1>
           </div>
           <p className="text-gray-500 text-xs uppercase tracking-widest">Autonomous Agent Economy</p>
         </div>
 
-        <div className="glass-panel rounded-xl p-6">
+        <div className="glass-panel rounded-xl p-4 sm:p-6">
           <h2 className="text-sm font-semibold text-white mb-5">
             {mode === 'login' ? 'Sign In' : 'Create Account'}
           </h2>
@@ -52,6 +52,8 @@ function AuthScreen() {
 function Dashboard() {
   const { user, logout, apiFetch, connectWallet } = useAuth();
   const [walletLoading, setWalletLoading] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
 
   const [agents, setAgents] = useState([]);
   const [myAgents, setMyAgents] = useState([]);
@@ -68,9 +70,18 @@ function Dashboard() {
 
   useEffect(() => {
     fetchData();
-    const interval = setInterval(fetchData, 30000);
-    return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [menuOpen]);
 
   const fetchData = async () => {
     const safeFetch = async (url, setter) => {
@@ -147,34 +158,44 @@ function Dashboard() {
   return (
     <div className="relative w-full h-full flex flex-col">
       {/* Top bar */}
-      <div className="h-9 bg-black/60 border-b border-white/5 flex items-center justify-between px-4 z-20">
-        <div className="flex items-center gap-3">
-          <Activity className="w-4 h-4 text-primary" />
-          <span className="text-xs font-bold tracking-wide">
+      <div className="shrink-0 min-h-11 lg:h-9 bg-black/60 border-b border-white/5 flex items-center justify-between px-3 sm:px-4 z-20">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+          <Activity className="w-4 h-4 text-primary shrink-0" />
+          <span className="text-xs font-bold tracking-wide shrink-0">
             <span className="text-white">TASK</span><span className="text-primary">FORCE</span>
           </span>
-          <span className="text-[10px] text-gray-600">|</span>
-          <button 
+
+          {/* Desktop user info */}
+          <span className="hidden lg:inline text-[10px] text-gray-600">|</span>
+          <button
             onClick={() => setShowProfile(true)}
-            className="text-[10px] text-gray-400 hover:text-white transition-colors font-mono flex items-center gap-1"
+            className="hidden lg:flex text-[10px] text-gray-400 hover:text-white transition-colors font-mono items-center gap-1 truncate max-w-[180px]"
           >
             {user?.full_name || user?.email}
           </button>
           {user?.wallet_address && (
-            <span className="text-[10px] text-success font-mono">
+            <span className="hidden md:inline text-[10px] text-success font-mono shrink-0">
               {`${user.wallet_address.slice(0, 6)}...${user.wallet_address.slice(-4)}`}
             </span>
           )}
           {myAgents.length > 0 && (
-            <span className="text-[10px] text-warning font-mono flex items-center gap-1">
-              <Bot className="w-3 h-3" /> Earned: {earnings.total_earned_usd?.toFixed(4) || '0.0000'} AVAX
+            <span className="hidden xl:flex text-[10px] text-warning font-mono items-center gap-1 shrink-0">
+              <Bot className="w-3 h-3" /> Earned: ${earnings.total_earned_usd?.toFixed(4) || '0.0000'} USD
             </span>
           )}
         </div>
-        <div className="flex items-center gap-2">
+
+        {/* Desktop actions */}
+        <div className="hidden lg:flex items-center gap-2 shrink-0">
           {!user?.wallet_address && (
             <button
-              onClick={async () => { setWalletLoading(true); try { await connectWallet(); } catch {} setWalletLoading(false); }}
+              onClick={async () => {
+                setWalletLoading(true);
+                try {
+                  await connectWallet();
+                } catch {}
+                setWalletLoading(false);
+              }}
               disabled={walletLoading}
               className="text-[10px] text-gray-500 hover:text-secondary uppercase tracking-widest transition-colors flex items-center gap-1"
             >
@@ -188,6 +209,88 @@ function Dashboard() {
           >
             Sign Out
           </button>
+        </div>
+
+        {/* Mobile menu */}
+        <div className="lg:hidden relative shrink-0" ref={menuRef}>
+          <button
+            type="button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg border border-white/10 bg-white/5 text-gray-300 hover:text-white transition-colors"
+            aria-expanded={menuOpen}
+            aria-haspopup="true"
+          >
+            <User className="w-4 h-4 text-primary" />
+            <ChevronDown className={`w-3 h-3 transition-transform ${menuOpen ? 'rotate-180' : ''}`} />
+          </button>
+
+          {menuOpen && (
+            <div className="absolute right-0 top-full mt-2 w-64 rounded-xl border border-white/10 bg-black/95 backdrop-blur-xl shadow-2xl overflow-hidden z-50">
+              <div className="p-3 border-b border-white/5">
+                <p className="text-xs text-white font-medium truncate">
+                  {user?.full_name || 'User'}
+                </p>
+                <p className="text-[10px] text-gray-500 truncate mt-0.5">{user?.email}</p>
+                {user?.wallet_address && (
+                  <p className="text-[10px] text-success font-mono mt-1">
+                    {`${user.wallet_address.slice(0, 6)}...${user.wallet_address.slice(-4)}`}
+                  </p>
+                )}
+                {myAgents.length > 0 && (
+                  <p className="text-[10px] text-warning font-mono mt-1 flex items-center gap-1">
+                    <Bot className="w-3 h-3 shrink-0" />
+                    Earned: ${earnings.total_earned_usd?.toFixed(4) || '0.0000'} USD
+                  </p>
+                )}
+              </div>
+              <div className="p-2 space-y-0.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowProfile(true);
+                    setMenuOpen(false);
+                  }}
+                  className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                >
+                  <User className="w-4 h-4 text-primary" />
+                  Profile
+                </button>
+                {!user?.wallet_address && (
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      setWalletLoading(true);
+                      try {
+                        await connectWallet();
+                      } catch {}
+                      setWalletLoading(false);
+                      setMenuOpen(false);
+                    }}
+                    disabled={walletLoading}
+                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors disabled:opacity-50"
+                  >
+                    {walletLoading ? (
+                      <Loader2 className="w-4 h-4 animate-spin text-secondary" />
+                    ) : (
+                      <Wallet className="w-4 h-4 text-secondary" />
+                    )}
+                    Connect Wallet
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    logout();
+                  }}
+                  className="w-full flex items-center gap-2 px-3 py-2 text-xs text-gray-300 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
+                >
+                  <LogOut className="w-4 h-4" />
+                  Sign Out
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

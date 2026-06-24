@@ -35,8 +35,11 @@ contract X402PaymentProcessor {
     ) external payable returns (bytes32 paymentId) {
         require(_to != address(0), "Invalid recipient");
         require(_amount > 0, "Amount must be greater than zero");
+        require(msg.value >= _amount, "Insufficient value sent");
 
-        // Generate a pseudo payment ID from msg.sender, block timestamp and jobId
+        (bool success, ) = _to.call{value: _amount}("");
+        require(success, "Transfer to recipient failed");
+
         paymentId = keccak256(abi.encodePacked(msg.sender, _to, _amount, _jobId, block.timestamp));
 
         payments[paymentId] = Payment({

@@ -32,7 +32,7 @@ class Subtask(BaseModel):
     suggested_price_usd: float
 
 
-async def generate_gemini_content(prompt: str, is_json: bool = False) -> str:
+async def generate_gemini_content(prompt: str, is_json: bool = False, use_strong_model: bool = False) -> str:
     if not GEMINI_API_KEY:
         await asyncio.sleep(1.5)
         if is_json:
@@ -56,7 +56,9 @@ async def generate_gemini_content(prompt: str, is_json: bool = False) -> str:
             return "This is a mock response from the agent."
 
     try:
-        model = genai.GenerativeModel('gemini-2.5-flash')
+        await asyncio.sleep(2)  # Avoid rate limits
+        model_name = 'gemini-2.5-flash' if use_strong_model else 'gemini-1.5-flash'
+        model = genai.GenerativeModel(model_name)
         response = await model.generate_content_async(prompt)
         text = response.text
         if is_json and text.startswith("```json"):
@@ -88,6 +90,7 @@ async def orchestrate_task(task_id: str, task_description: str, event_queue: asy
     Specialties available: Research, Writing, Data Analysis, Summarization, Fact Checking.
     User Task: {task_description}
     Output ONLY a valid JSON array of objects with keys: subtask_id, description, required_specialty, estimated_complexity, suggested_price_usd.
+    IMPORTANT: suggested_price_usd must be a very small decimal (e.g., 0.001 to 0.05), never exceed 0.05.
     """
 
     decomposition_result = await generate_gemini_content(decomposition_prompt, is_json=True)
@@ -96,6 +99,8 @@ async def orchestrate_task(task_id: str, task_description: str, event_queue: asy
         subtasks_data = json.loads(decomposition_result)
         if not isinstance(subtasks_data, list):
             subtasks_data = [subtasks_data]
+        if not subtasks_data:
+            raise ValueError("Gemini returned an empty list")
     except Exception as e:
         logger.error("Failed to parse Gemini JSON output. Using fallback.")
         subtasks_data = [
@@ -113,13 +118,13 @@ async def orchestrate_task(task_id: str, task_description: str, event_queue: asy
         req_specialty = st.get("required_specialty", "Writing")
         price = st.get("suggested_price_usd", 0.05)
 
-        emit("AGENT_SELECTED", f"Discovering agent for specialty: {req_specialty}", step=step_num)
+        emit("AGENT_SELECTED", f"Discovering optimal agent for: {subtask_desc}", step=step_num)
 
-        candidates = await discover_agents_by_specialty(req_specialty)
-        valid_candidates = sorted([c for c in candidates if c.reputation_score > 60], key=lambda x: x.reputation_score, reverse=True)
+        from .registry import registry_instance
+        all_agents = await registry_instance.get_all_agents()
 
-        if not valid_candidates:
-            emit("ERROR", f"No agent found for {req_specialty}. Task aborted.", step=step_num)
+        if not all_agents:
+            emit("ERROR", f"No agents available in registry. Task aborted.", step=step_num)
             async with AsyncSessionLocal() as session:
                 result = await session.execute(select(TaskModel).where(TaskModel.task_id == task_id))
                 task_row = result.scalar_one_or_none()
@@ -128,7 +133,23 @@ async def orchestrate_task(task_id: str, task_description: str, event_queue: asy
                     await session.commit()
             return
 
-        chosen_agent = valid_candidates[0]
+        agents_info = [{"agent_id": a.agent_id, "name": a.name, "specialty": a.specialty, "reputation": a.reputation_score, "price_usd": a.price_per_task_usd} for a in all_agents]
+        selection_prompt = f"""
+        You are the Agent Selector AI. Your job is to select the most suitable agent for the following subtask based on their specialty, reputation, and price.
+        Do not discriminate against system or deployed agents. Pick the objectively best one.
+        Subtask: {subtask_desc}
+        Available Agents: {json.dumps(agents_info)}
+        Output ONLY the agent_id of the chosen agent. No markdown, no extra text.
+        """
+        
+        chosen_agent_id = await generate_gemini_content(selection_prompt, is_json=False)
+        chosen_agent_id = chosen_agent_id.strip()
+        
+        chosen_agent = next((a for a in all_agents if a.agent_id == chosen_agent_id), None)
+        if not chosen_agent:
+            # Fallback to the highest reputation agent if Gemini output is invalid
+            chosen_agent = sorted(all_agents, key=lambda x: x.reputation_score, reverse=True)[0]
+
         emit("AGENT_SELECTED", f"Selected {chosen_agent.name} (Reputation: {chosen_agent.reputation_score})", agent_name=chosen_agent.name, step=step_num)
 
         # Payment
@@ -169,7 +190,7 @@ async def orchestrate_task(task_id: str, task_description: str, event_queue: asy
                 agent_output = f"Error calling external agent: {e}"
         else:
             agent_prompt = f"You are {chosen_agent.name}, an expert in {chosen_agent.specialty}. Complete this subtask: {subtask_desc}. Context: {task_description}"
-            agent_output = await generate_gemini_content(agent_prompt, is_json=False)
+            agent_output = await generate_gemini_content(agent_prompt, is_json=False, use_strong_model=True)
 
         results_collected.append({"agent": chosen_agent.name, "task": subtask_desc, "output": agent_output})
 
@@ -187,7 +208,7 @@ async def orchestrate_task(task_id: str, task_description: str, event_queue: asy
                 description=subtask_desc,
                 output=agent_output,
                 cost=price,
-                reputation_change="+1.0"
+                reputation_change="+0.1"
             )
             session.add(subtask_row)
             await session.commit()
@@ -196,7 +217,7 @@ async def orchestrate_task(task_id: str, task_description: str, event_queue: asy
     emit("TASK_SYNTHESIZING", "All subtasks completed. Synthesizing final output...", step=99)
     synthesis_prompt = f"Synthesize these subtask outputs into a cohesive final result for the original task: '{task_description}'.\nOutputs: {json.dumps(results_collected)}"
 
-    final_result = await generate_gemini_content(synthesis_prompt, is_json=False)
+    final_result = await generate_gemini_content(synthesis_prompt, is_json=False, use_strong_model=True)
 
     # Persist final result to DB
     async with AsyncSessionLocal() as session:

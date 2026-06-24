@@ -67,7 +67,13 @@ class X402PaymentProcessor:
                 logger.info(f"Initiating on-chain x402 payment via {self.contract_address}")
 
                 job_bytes = Web3.keccak(text=job_id)
-                amount_wei = w3.to_wei(0.0001, 'ether')
+                
+                # Convert USD to AVAX (Assuming 1 AVAX = $35)
+                avax_amount = amount_usd / 35.0
+                if avax_amount < 0.0001:
+                    avax_amount = 0.0001
+                    
+                amount_wei = w3.to_wei(round(avax_amount, 6), 'ether')
 
                 tx = self.contract.functions.processPayment(
                     job_bytes,
@@ -142,7 +148,7 @@ class X402PaymentProcessor:
                 logger.warning(f"Transaction {tx_hash} failed on-chain.")
                 return False
                 
-            expected_treasury = os.getenv("VITE_TREASURY_WALLET_ADDRESS", "0x70997970C51812dc3A010C7d01b50e0d17dc79C8")
+            expected_treasury = os.getenv("VITE_TREASURY_WALLET_ADDRESS", "0x7E42f545218Fd351c488B03560aB3C7881AAa677")
             if tx.to.lower() != expected_treasury.lower():
                 logger.warning(f"Transaction {tx_hash} sent to wrong address: {tx.to}")
                 return False

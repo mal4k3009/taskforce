@@ -45,7 +45,7 @@ contract ERC8004Registry {
             agentId: _agentId,
             wallet: _wallet,
             metadataURI: _metadataURI,
-            reputationScore: 80, // Default baseline reputation
+            reputationScore: 50, // Default baseline reputation
             totalJobs: 0,
             isVerified: true
         });

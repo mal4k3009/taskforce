@@ -41,16 +41,16 @@ const ProfileModal = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.95 }}
-        className="relative w-full max-w-md bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+        className="relative w-full sm:max-w-md bg-black/80 backdrop-blur-xl border border-white/10 rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[95dvh] flex flex-col"
       >
-        <div className="p-6 border-b border-white/5 flex justify-between items-center">
+        <div className="p-4 sm:p-6 border-b border-white/5 flex justify-between items-center shrink-0">
           <h2 className="text-lg font-bold text-white flex items-center gap-2">
             <User className="w-5 h-5 text-primary" />
             Neural Profile
@@ -60,7 +60,7 @@ const ProfileModal = ({ onClose }) => {
           </button>
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="p-4 sm:p-6 space-y-6 overflow-y-auto min-h-0">
           <div className="flex flex-col items-center gap-4">
             <div className="relative">
               <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-full blur opacity-40"></div>
@@ -120,7 +120,7 @@ const ProfileModal = ({ onClose }) => {
           </div>
         </div>
 
-        <div className="p-6 border-t border-white/5 bg-white/[0.02] flex justify-end">
+        <div className="p-4 sm:p-6 border-t border-white/5 bg-white/[0.02] flex justify-end shrink-0 safe-area-bottom">
           <button 
             onClick={handleSave}
             disabled={loading}

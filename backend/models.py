@@ -33,7 +33,7 @@ class Agent(Base):
     name: Mapped[str] = mapped_column(String(128), nullable=False)
     specialty: Mapped[str] = mapped_column(String(64), nullable=False)
     wallet_address: Mapped[str] = mapped_column(String(128), nullable=False)
-    reputation_score: Mapped[float] = mapped_column(Float, default=80.0)
+    reputation_score: Mapped[float] = mapped_column(Float, default=50.0)
     completed_jobs: Mapped[int] = mapped_column(Integer, default=0)
     price_per_task_usd: Mapped[float] = mapped_column(Float, default=0.10)
     erc8004_identity_hash: Mapped[str] = mapped_column(String(128), default="")

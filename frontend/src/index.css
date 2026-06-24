@@ -49,3 +49,8 @@
 .animate-blink {
   animation: blink 1s step-end infinite;
 }
+
+/* Safe area padding for mobile bottom nav and modals */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
