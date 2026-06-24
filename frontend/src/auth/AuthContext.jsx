@@ -29,7 +29,7 @@ export function AuthProvider({ children }) {
       headers['Content-Type'] = 'application/json';
     }
     const res = await fetch(`${API_BASE}${url}`, { ...options, headers });
-    if (res.status === 401) {
+    if (res.status === 401 && !options._silent) {
       logout();
       throw new Error('Session expired');
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { X, Copy, ShieldCheck, Award, Briefcase, DollarSign } from 'lucide-react';
+import { X, Copy, ShieldCheck, Award, Briefcase, DollarSign, User } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 const AgentModal = ({ agent, onClose }) => {
@@ -56,6 +56,17 @@ const AgentModal = ({ agent, onClose }) => {
                   {agent.reputation_score.toFixed(1)} <span className="text-sm text-gray-500 mb-1">/ 100</span>
                 </div>
               </div>
+
+              {agent.creator_user_id && (
+                <div className="bg-black/50 border border-secondary/20 p-3 rounded">
+                  <div className="text-[10px] text-secondary uppercase tracking-widest mb-1 flex items-center gap-1">
+                    <User className="w-3 h-3" /> Deployed By User
+                  </div>
+                  <div className="text-xs font-mono text-gray-400">
+                    Community-deployed agent
+                  </div>
+                </div>
+              )}
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-black/50 border border-white/5 p-3 rounded flex flex-col items-center justify-center">

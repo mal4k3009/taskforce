@@ -1,13 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Activity, TerminalSquare, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { Activity, TerminalSquare, CheckCircle2, AlertCircle, Loader2, Plus, User, DollarSign, Wallet, Users } from 'lucide-react';
 import AgentNodeOrbit from './AgentNodeOrbit';
 
-const CommandCenter = ({ agents, payments, stats, onDeploy, taskState, sseEvents, onSelectAgent }) => {
+const CommandCenter = ({ agents, payments, stats, onDeploy, taskState, sseEvents, onSelectAgent, onOpenDeployAgent, user, myAgents, earnings }) => {
   agents = agents || [];
   payments = payments || [];
   sseEvents = sseEvents || [];
   stats = stats || {};
+  myAgents = myAgents || [];
+  earnings = earnings || {};
   const [taskInput, setTaskInput] = useState('');
   const logEndRef = useRef(null);
 
@@ -53,9 +55,65 @@ const CommandCenter = ({ agents, payments, stats, onDeploy, taskState, sseEvents
         </div>
 
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          <h2 className="text-gray-500 text-xs font-semibold tracking-widest uppercase mb-2">Registered Agents</h2>
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-gray-500 text-xs font-semibold tracking-widest uppercase">Registered Agents</h2>
+            <button
+              onClick={onOpenDeployAgent}
+              className="text-[10px] text-primary hover:text-indigo-400 transition-colors flex items-center gap-1 uppercase tracking-widest font-bold"
+            >
+              <Plus className="w-3 h-3" /> Deploy
+            </button>
+          </div>
+
+          {myAgents.length > 0 && (
+            <div className="mb-4">
+              <h3 className="text-[10px] text-secondary tracking-widest uppercase mb-2 flex items-center gap-1">
+                <User className="w-3 h-3" /> My Agents
+              </h3>
+              <div className="space-y-2">
+                {myAgents.map(agent => (
+                  <motion.div
+                    key={agent.agent_id}
+                    whileHover={{ scale: 1.02 }}
+                    onClick={() => onSelectAgent(agent)}
+                    className="p-3 rounded border border-secondary/20 bg-secondary/5 cursor-pointer hover-glow flex flex-col gap-2"
+                  >
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={`https://api.dicebear.com/7.x/bottts/svg?seed=${agent.avatar_seed}`}
+                        alt="avatar"
+                        className="w-8 h-8 rounded-full border border-secondary/50"
+                      />
+                      <div>
+                        <h3 className="text-sm font-medium text-white">{agent.name}</h3>
+                        <p className="text-xs text-gray-400">{agent.specialty}</p>
+                      </div>
+                      <div className={`w-1.5 h-1.5 rounded-full ml-auto ${agent.reputation_score > 75 ? 'bg-success animate-pulse' : agent.reputation_score > 50 ? 'bg-warning' : 'bg-red-500'}`} />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 h-1 bg-gray-800 rounded-full overflow-hidden">
+                        <motion.div
+                          className="h-full bg-gradient-to-r from-secondary to-primary"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${agent.reputation_score}%` }}
+                        />
+                      </div>
+                      <span className="text-xs font-mono text-gray-300">{agent.reputation_score.toFixed(1)}</span>
+                    </div>
+                    <span className="text-[10px] text-secondary font-mono flex items-center gap-1">
+                      <Wallet className="w-3 h-3" /> Revenue: ${earnings?.agents?.find(a => a.agent_id === agent.agent_id)?.earned_usd?.toFixed(2) || '0.00'}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <h3 className="text-[10px] text-gray-500 tracking-widest uppercase mb-2 flex items-center gap-1">
+            <Users className="w-3 h-3" /> Marketplace
+          </h3>
           <div className="space-y-2">
-            {agents.map(agent => (
+            {agents.filter(a => !a.creator_user_id || a.creator_user_id !== user?.user_id).map(agent => (
               <motion.div 
                 key={agent.agent_id}
                 whileHover={{ scale: 1.02 }}
@@ -83,6 +141,14 @@ const CommandCenter = ({ agents, payments, stats, onDeploy, taskState, sseEvents
                     />
                   </div>
                   <span className="text-xs font-mono text-gray-300">{agent.reputation_score.toFixed(1)}</span>
+                </div>
+                <div className="flex items-center gap-1 mt-1">
+                  {agent.creator_user_id && (
+                    <span className="text-[9px] text-gray-500 font-mono">Deployed by user</span>
+                  )}
+                  {!agent.creator_user_id && (
+                    <span className="text-[9px] text-primary/50 font-mono">System Agent</span>
+                  )}
                 </div>
               </motion.div>
             ))}

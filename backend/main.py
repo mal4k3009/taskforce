@@ -4,7 +4,7 @@ import json
 import asyncio
 import logging
 from contextlib import asynccontextmanager
-from typing import Dict, Optional
+from typing import Dict
 from fastapi import FastAPI, BackgroundTasks, Request, Depends, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -20,7 +20,7 @@ from models import Task as TaskModel, Subtask as SubtaskModel, Agent as AgentMod
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-from agents.registry import registry_instance
+from agents.registry import registry_instance, CreateAgentRequest, UpdateAgentRequest
 from agents.orchestrator import orchestrate_task
 from x402.payment import payment_processor
 from auth import router as auth_router, get_current_user
@@ -160,14 +160,72 @@ async def get_task_result(
 
 
 @app.get("/api/agents")
-@app.get("/api/agents/{agent_id}")
-async def get_agents(agent_id: Optional[str] = None):
-    if agent_id:
-        agent = await registry_instance.get_agent(agent_id)
-        if not agent:
-            return {"error": "Agent not found"}
-        return agent.model_dump()
+async def get_agents():
     return [a.model_dump() for a in await registry_instance.get_all_agents()]
+
+
+@app.get("/api/agents/mine")
+async def get_my_agents(current_user: UserModel = Depends(get_current_user)):
+    agents = await registry_instance.get_agents_by_creator(current_user.user_id)
+    return [a.model_dump() for a in agents]
+
+
+@app.get("/api/agents/{agent_id}")
+async def get_agent(agent_id: str):
+    agent = await registry_instance.get_agent(agent_id)
+    if not agent:
+        return {"error": "Agent not found"}
+    return agent.model_dump()
+
+
+@app.post("/api/agents")
+async def create_agent(
+    req: CreateAgentRequest,
+    current_user: UserModel = Depends(get_current_user),
+):
+    if not current_user.wallet_address:
+        raise HTTPException(status_code=400, detail="You must connect a wallet before deploying an agent")
+    agent = await registry_instance.create_agent(req, current_user.user_id, current_user.wallet_address)
+    return agent.model_dump()
+
+
+@app.put("/api/agents/{agent_id}")
+async def update_agent(
+    agent_id: str,
+    req: UpdateAgentRequest,
+    current_user: UserModel = Depends(get_current_user),
+):
+    agent = await registry_instance.get_agent(agent_id)
+    if not agent:
+        raise HTTPException(status_code=404, detail="Agent not found")
+    if agent.creator_user_id != current_user.user_id:
+        raise HTTPException(status_code=403, detail="Only the agent creator can update this agent")
+    updated = await registry_instance.update_agent(agent_id, req)
+    return updated.model_dump()
+
+
+@app.delete("/api/agents/{agent_id}")
+async def delete_agent(
+    agent_id: str,
+    current_user: UserModel = Depends(get_current_user),
+):
+    agent = await registry_instance.get_agent(agent_id)
+    if not agent:
+        raise HTTPException(status_code=404, detail="Agent not found")
+    if agent.creator_user_id != current_user.user_id:
+        raise HTTPException(status_code=403, detail="Only the agent creator can delete this agent")
+    success = await registry_instance.delete_agent(agent_id)
+    return {"deleted": success}
+
+
+@app.get("/api/earnings")
+async def get_earnings(current_user: UserModel = Depends(get_current_user)):
+    try:
+        earnings = await payment_processor.get_earnings_by_creator(current_user.user_id)
+        return earnings
+    except Exception as e:
+        logger.error(f"get_earnings error for user {current_user.user_id}: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/api/payments")
@@ -214,7 +272,6 @@ async def get_stats(current_user: UserModel = Depends(get_current_user)):
 
 if __name__ == "__main__":
     import uvicorn
-    import os
     uvicorn.run(
         "main:app",
         host="0.0.0.0",

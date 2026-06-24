@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Activity, Wallet, Loader2 } from 'lucide-react';
+import { Activity, Wallet, Loader2, Bot } from 'lucide-react';
 import { AuthProvider, useAuth } from './auth/AuthContext';
 import Login from './auth/Login';
 import Register from './auth/Register';
@@ -8,6 +8,7 @@ import CommandCenter from './components/CommandCenter';
 import ResultPanel from './components/ResultPanel';
 import AgentModal from './components/AgentModal';
 import ProfileModal from './components/ProfileModal';
+import DeployAgentModal from './components/DeployAgentModal';
 
 function AuthScreen() {
   const [mode, setMode] = useState('login');
@@ -53,14 +54,17 @@ function Dashboard() {
   const [walletLoading, setWalletLoading] = useState(false);
 
   const [agents, setAgents] = useState([]);
+  const [myAgents, setMyAgents] = useState([]);
   const [payments, setPayments] = useState([]);
   const [stats, setStats] = useState({ total_tasks: 0, total_value_settled_usd: 0 });
+  const [earnings, setEarnings] = useState({ total_earned_usd: 0, agents: [] });
   const [activeTaskId, setActiveTaskId] = useState(null);
   const [taskState, setTaskState] = useState(null);
   const [sseEvents, setSseEvents] = useState([]);
   const [selectedAgentProfile, setSelectedAgentProfile] = useState(null);
   const [resultData, setResultData] = useState(null);
   const [showProfile, setShowProfile] = useState(false);
+  const [showDeployAgent, setShowDeployAgent] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -69,18 +73,19 @@ function Dashboard() {
   }, []);
 
   const fetchData = async () => {
-    try {
-      const [agentsRes, paymentsRes, statsRes] = await Promise.all([
-        apiFetch('/api/agents'),
-        apiFetch('/api/payments'),
-        apiFetch('/api/stats'),
-      ]);
-      if (agentsRes.ok) setAgents(await agentsRes.json());
-      if (paymentsRes.ok) setPayments(await paymentsRes.json());
-      if (statsRes.ok) setStats(await statsRes.json());
-    } catch (err) {
-      console.error('Error fetching data:', err);
-    }
+    const safeFetch = async (url, setter) => {
+      try {
+        const res = await apiFetch(url, { _silent: true });
+        if (res.ok) setter(await res.json());
+      } catch {}
+    };
+    await Promise.all([
+      safeFetch('/api/agents', setAgents),
+      safeFetch('/api/payments', setPayments),
+      safeFetch('/api/stats', setStats),
+      safeFetch('/api/agents/mine', setMyAgents),
+      safeFetch('/api/earnings', setEarnings),
+    ]);
   };
 
   const handleDeployTask = async (taskText) => {
@@ -160,6 +165,11 @@ function Dashboard() {
               {`${user.wallet_address.slice(0, 6)}...${user.wallet_address.slice(-4)}`}
             </span>
           )}
+          {myAgents.length > 0 && (
+            <span className="text-[10px] text-warning font-mono flex items-center gap-1">
+              <Bot className="w-3 h-3" /> Earned: ${earnings.total_earned_usd?.toFixed(2) || '0.00'}
+            </span>
+          )}
         </div>
         <div className="flex items-center gap-2">
           {!user?.wallet_address && (
@@ -191,6 +201,10 @@ function Dashboard() {
           taskState={taskState}
           sseEvents={sseEvents}
           onSelectAgent={(agent) => setSelectedAgentProfile(agent)}
+          onOpenDeployAgent={() => setShowDeployAgent(true)}
+          user={user}
+          myAgents={myAgents}
+          earnings={earnings}
         />
       </div>
 
@@ -207,6 +221,15 @@ function Dashboard() {
 
       {showProfile && (
         <ProfileModal onClose={() => setShowProfile(false)} />
+      )}
+
+      {showDeployAgent && (
+        <DeployAgentModal
+          user={user}
+          apiFetch={apiFetch}
+          onClose={() => setShowDeployAgent(false)}
+          onDeployed={() => { fetchData(); }}
+        />
       )}
     </div>
   );

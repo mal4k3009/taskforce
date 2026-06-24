@@ -132,7 +132,7 @@ async def orchestrate_task(task_id: str, task_description: str, event_queue: asy
 
         # Payment
         emit("PAYMENT_INITIATED", f"Initiating payment of ${price} to {chosen_agent.name}", agent_name=chosen_agent.name, amount=price, step=step_num)
-        tx_hash = await payment_processor.initiate_payment(LEAD_AGENT_WALLET, chosen_agent.wallet_address, price, task_id, user_id)
+        tx_hash = await payment_processor.initiate_payment(LEAD_AGENT_WALLET, chosen_agent.wallet_address, price, task_id, user_id, agent_id=chosen_agent.agent_id)
 
         await asyncio.sleep(1)
 
