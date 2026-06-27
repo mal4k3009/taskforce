@@ -348,18 +348,34 @@ function App() {
 
 function AppContent() {
   const { user, loading } = useAuth();
+  const vantaRef = useRef(null);
+
+  useEffect(() => {
+    let vantaEffect = null;
+    if (window.VANTA && !vantaEffect) {
+      vantaEffect = window.VANTA.GLOBE({
+        el: vantaRef.current,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0xefefef,
+        size: 1.30,
+        backgroundColor: 0x0
+      });
+    }
+    return () => {
+      if (vantaEffect) vantaEffect.destroy();
+    };
+  }, []);
 
   return (
     <>
-      {/* Global Background Video */}
-      <video
-        src="/bg_video.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="fixed top-0 left-0 w-full h-full object-cover -z-10"
-      />
+      {/* Global Background */}
+      <div ref={vantaRef} className="fixed top-0 left-0 w-full h-full -z-10" />
       <div className="fixed inset-0 bg-black/60 -z-10" />
 
       {loading ? (
